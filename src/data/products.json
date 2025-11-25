@@ -1,10 +1,11 @@
 [
     {
         "id": "1",
-        "name": "Wireless Noise-Cancelling Headphones",
-        "description": "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and studio-quality sound. Perfect for music lovers and professionals.",
-        "price": 299.99,
-        "originalPrice": 399.99,
+        "name": "Auriculares Inalámbricos con Cancelación de Ruido",
+        "description": "Auriculares premium over-ear con cancelación activa de ruido, 30 horas de batería y sonido de calidad de estudio. Perfectos para amantes de la música y profesionales.",
+        "price": 299990,
+        "originalPrice": 399990,
+        "currency": "ARS",
         "category": "Electronics",
         "tags": [
             "audio",
@@ -17,14 +18,19 @@
         ],
         "stock": 45,
         "rating": 4.8,
-        "reviews": 324
+        "reviews": 324,
+        "trending": true,
+        "bestseller": true,
+        "newArrival": false,
+        "views": 1250
     },
     {
         "id": "2",
-        "name": "Smart Fitness Watch",
-        "description": "Track your health and fitness goals with this advanced smartwatch. Features heart rate monitoring, GPS, and 7-day battery life.",
-        "price": 249.99,
-        "originalPrice": 349.99,
+        "name": "Smartwatch Deportivo",
+        "description": "Monitorea tu salud y objetivos fitness con este smartwatch avanzado. Incluye monitor de frecuencia cardíaca, GPS y 7 días de batería.",
+        "price": 249990,
+        "originalPrice": 349990,
+        "currency": "ARS",
         "category": "Electronics",
         "tags": [
             "fitness",
@@ -37,14 +43,19 @@
         ],
         "stock": 67,
         "rating": 4.6,
-        "reviews": 512
+        "reviews": 512,
+        "trending": true,
+        "bestseller": false,
+        "newArrival": false,
+        "views": 980
     },
     {
         "id": "3",
-        "name": "Minimalist Leather Backpack",
-        "description": "Handcrafted genuine leather backpack with laptop compartment. Timeless design meets modern functionality.",
-        "price": 189.99,
+        "name": "Mochila de Cuero Minimalista",
+        "description": "Mochila de cuero genuino hecha a mano con compartimento para laptop. Diseño atemporal con funcionalidad moderna.",
+        "price": 189990,
         "originalPrice": null,
+        "currency": "ARS",
         "category": "Fashion",
         "tags": [
             "leather",
@@ -57,14 +68,19 @@
         ],
         "stock": 23,
         "rating": 4.9,
-        "reviews": 187
+        "reviews": 187,
+        "trending": false,
+        "bestseller": true,
+        "newArrival": false,
+        "views": 756
     },
     {
         "id": "4",
-        "name": "Organic Cotton T-Shirt Set",
-        "description": "Pack of 3 premium organic cotton t-shirts. Soft, breathable, and sustainably made. Available in multiple colors.",
-        "price": 59.99,
-        "originalPrice": 79.99,
+        "name": "Pack 3 Remeras de Algodón Orgánico",
+        "description": "Pack de 3 remeras premium de algodón orgánico. Suaves, transpirables y fabricadas de manera sustentable. Disponibles en varios colores.",
+        "price": 59990,
+        "originalPrice": 79990,
+        "currency": "ARS",
         "category": "Fashion",
         "tags": [
             "organic",
@@ -77,14 +93,19 @@
         ],
         "stock": 156,
         "rating": 4.7,
-        "reviews": 892
+        "reviews": 892,
+        "trending": false,
+        "bestseller": true,
+        "newArrival": false,
+        "views": 1420
     },
     {
         "id": "5",
-        "name": "Modern Desk Lamp",
-        "description": "Sleek LED desk lamp with adjustable brightness and color temperature. USB charging port included.",
-        "price": 79.99,
+        "name": "Lámpara de Escritorio LED Moderna",
+        "description": "Elegante lámpara LED de escritorio con brillo y temperatura de color ajustables. Incluye puerto de carga USB.",
+        "price": 79990,
         "originalPrice": null,
+        "currency": "ARS",
         "category": "Home",
         "tags": [
             "lighting",
@@ -97,14 +118,19 @@
         ],
         "stock": 89,
         "rating": 4.5,
-        "reviews": 234
+        "reviews": 234,
+        "trending": false,
+        "bestseller": false,
+        "newArrival": true,
+        "views": 445
     },
     {
         "id": "6",
-        "name": "Ceramic Coffee Mug Set",
-        "description": "Set of 4 handmade ceramic mugs with unique glazed finish. Microwave and dishwasher safe.",
-        "price": 44.99,
-        "originalPrice": 59.99,
+        "name": "Set de Tazas de Cerámica Artesanales",
+        "description": "Set de 4 tazas de cerámica hechas a mano con acabado esmaltado único. Aptas para microondas y lavavajillas.",
+        "price": 44990,
+        "originalPrice": 59990,
+        "currency": "ARS",
         "category": "Home",
         "tags": [
             "ceramic",
@@ -117,14 +143,19 @@
         ],
         "stock": 34,
         "rating": 4.8,
-        "reviews": 156
+        "reviews": 156,
+        "trending": false,
+        "bestseller": false,
+        "newArrival": false,
+        "views": 320
     },
     {
         "id": "7",
-        "name": "Portable Bluetooth Speaker",
-        "description": "Waterproof portable speaker with 360° sound. Perfect for outdoor adventures with 12-hour battery life.",
-        "price": 129.99,
-        "originalPrice": 179.99,
+        "name": "Parlante Bluetooth Portátil",
+        "description": "Parlante portátil resistente al agua con sonido 360°. Perfecto para aventuras al aire libre con 12 horas de batería.",
+        "price": 129990,
+        "originalPrice": 179990,
+        "currency": "ARS",
         "category": "Electronics",
         "tags": [
             "audio",
@@ -137,14 +168,19 @@
         ],
         "stock": 78,
         "rating": 4.6,
-        "reviews": 445
+        "reviews": 445,
+        "trending": true,
+        "bestseller": false,
+        "newArrival": false,
+        "views": 890
     },
     {
         "id": "8",
-        "name": "Yoga Mat & Block Set",
-        "description": "Premium non-slip yoga mat with matching blocks and carrying strap. Eco-friendly materials.",
-        "price": 69.99,
+        "name": "Set de Yoga: Mat y Bloques",
+        "description": "Mat de yoga premium antideslizante con bloques a juego y correa de transporte. Materiales eco-friendly.",
+        "price": 69990,
         "originalPrice": null,
+        "currency": "ARS",
         "category": "Fitness",
         "tags": [
             "yoga",
@@ -157,14 +193,19 @@
         ],
         "stock": 92,
         "rating": 4.7,
-        "reviews": 267
+        "reviews": 267,
+        "trending": false,
+        "bestseller": false,
+        "newArrival": true,
+        "views": 567
     },
     {
         "id": "9",
-        "name": "Stainless Steel Water Bottle",
-        "description": "Insulated water bottle keeps drinks cold for 24h or hot for 12h. BPA-free with leak-proof lid.",
-        "price": 34.99,
-        "originalPrice": 44.99,
+        "name": "Botella Térmica de Acero Inoxidable",
+        "description": "Botella térmica aislada que mantiene bebidas frías por 24h o calientes por 12h. Libre de BPA con tapa a prueba de fugas.",
+        "price": 34990,
+        "originalPrice": 44990,
+        "currency": "ARS",
         "category": "Fitness",
         "tags": [
             "hydration",
@@ -177,14 +218,19 @@
         ],
         "stock": 203,
         "rating": 4.9,
-        "reviews": 678
+        "reviews": 678,
+        "trending": false,
+        "bestseller": true,
+        "newArrival": false,
+        "views": 1120
     },
     {
         "id": "10",
-        "name": "Wireless Mechanical Keyboard",
-        "description": "Premium mechanical keyboard with RGB backlighting and hot-swappable switches. Wireless and wired modes.",
-        "price": 159.99,
-        "originalPrice": 199.99,
+        "name": "Teclado Mecánico Inalámbrico RGB",
+        "description": "Teclado mecánico premium con retroiluminación RGB y switches intercambiables. Modos inalámbrico y por cable.",
+        "price": 159990,
+        "originalPrice": 199990,
+        "currency": "ARS",
         "category": "Electronics",
         "tags": [
             "keyboard",
@@ -197,14 +243,19 @@
         ],
         "stock": 41,
         "rating": 4.8,
-        "reviews": 389
+        "reviews": 389,
+        "trending": true,
+        "bestseller": false,
+        "newArrival": true,
+        "views": 723
     },
     {
         "id": "11",
-        "name": "Scented Candle Collection",
-        "description": "Set of 3 luxury soy candles with natural essential oils. Hand-poured in elegant glass containers.",
-        "price": 54.99,
+        "name": "Colección de Velas Aromáticas",
+        "description": "Set de 3 velas de soja de lujo con aceites esenciales naturales. Vertidas a mano en elegantes recipientes de vidrio.",
+        "price": 54990,
         "originalPrice": null,
+        "currency": "ARS",
         "category": "Home",
         "tags": [
             "candles",
@@ -217,14 +268,19 @@
         ],
         "stock": 67,
         "rating": 4.7,
-        "reviews": 234
+        "reviews": 234,
+        "trending": false,
+        "bestseller": false,
+        "newArrival": false,
+        "views": 412
     },
     {
         "id": "12",
-        "name": "Classic Denim Jacket",
-        "description": "Timeless denim jacket with vintage wash. Versatile piece that pairs with everything in your wardrobe.",
-        "price": 89.99,
-        "originalPrice": 119.99,
+        "name": "Campera de Jean Clásica",
+        "description": "Campera de jean atemporal con lavado vintage. Pieza versátil que combina con todo tu guardarropa.",
+        "price": 89990,
+        "originalPrice": 119990,
+        "currency": "ARS",
         "category": "Fashion",
         "tags": [
             "denim",
@@ -237,6 +293,10 @@
         ],
         "stock": 58,
         "rating": 4.6,
-        "reviews": 412
+        "reviews": 412,
+        "trending": false,
+        "bestseller": false,
+        "newArrival": false,
+        "views": 634
     }
 ]

@@ -2,27 +2,58 @@
 interface Props {
 	title?: string;
 	description?: string;
+	ogImage?: string;
+	ogType?: string;
 }
 
 const {
-	title = "Sistema Global - Modern Ecommerce",
-	description = "Discover premium products with our modern ecommerce platform. Shop electronics, fashion, home goods, and more.",
+	title = "Sistema Global - Tu Tienda Premium Online",
+	description = "Descubre productos premium en Argentina. Electrónica, moda, hogar y fitness con los mejores precios y envío gratis. Compra seguro y fácil.",
+	ogImage = "/og-image.jpg",
+	ogType = "website",
 } = Astro.props;
 
 import "../styles/global.css";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial=" 1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(ogImage, Astro.url)} />
+		<meta property="og:locale" content="es_AR" />
+		<meta property="og:site_name" content="Sistema Global" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+
+		<!-- Additional SEO -->
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="Sistema Global" />
+		<meta
+			name="keywords"
+			content="ecommerce, tienda online, Argentina, productos premium, electrónica, moda, hogar, fitness"
+		/>
 	</head>
 	<body>
 		<slot />
