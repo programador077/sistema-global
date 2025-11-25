@@ -1,0 +1,524 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import products from "../../data/products.json";
+
+// Get all unique categories
+const categories = [...new Set(products.map((p) => p.category))];
+
+// Get query parameters (will be handled client-side for filtering)
+const allProducts = products;
+---
+
+<Layout
+    title="Productos - Sistema Global"
+    description="Explora nuestra colección completa de productos premium"
+>
+    <Header />
+
+    <main class="products-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Todos los Productos</h1>
+                <p>Descubre nuestra colección completa</p>
+            </div>
+
+            <div class="products-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3 class="filter-title">Categorías</h3>
+                        <div class="filter-options" id="category-filters">
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    value="all"
+                                    checked
+                                />
+                                <span>Todas</span>
+                            </label>
+                            {
+                                categories.map((category) => (
+                                    <label class="filter-option">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            value={category}
+                                        />
+                                        <span>{category}</span>
+                                    </label>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Precio</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="price"
+                                    value="all"
+                                    checked
+                                />
+                                <span>Todos</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="price" value="0-50" />
+                                <span>Menos de $50</span>
+                            </label>
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="price"
+                                    value="50-100"
+                                />
+                                <span>$50 - $100</span>
+                            </label>
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="price"
+                                    value="100-200"
+                                />
+                                <span>$100 - $200</span>
+                            </label>
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="price"
+                                    value="200-999"
+                                />
+                                <span>Más de $200</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Rating</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input
+                                    type="radio"
+                                    name="rating"
+                                    value="all"
+                                    checked
+                                />
+                                <span>Todos</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="rating" value="4" />
+                                <span>★★★★ y más</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="rating" value="4.5" />
+                                <span>★★★★★ 4.5+</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="clear-filters-btn" id="clear-filters">
+                        Limpiar Filtros
+                    </button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="products-content">
+                    <div class="products-toolbar">
+                        <div class="results-count">
+                            <span id="results-count">{allProducts.length}</span>
+                            productos
+                        </div>
+
+                        <div class="sort-controls">
+                            <label for="sort-select">Ordenar:</label>
+                            <select id="sort-select" class="sort-select">
+                                <option value="featured">Destacados</option>
+                                <option value="price-asc"
+                                    >Precio: Menor a Mayor</option
+                                >
+                                <option value="price-desc"
+                                    >Precio: Mayor a Menor</option
+                                >
+                                <option value="rating">Mejor Valorados</option>
+                                <option value="name">Nombre A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="products-grid">
+                        {
+                            allProducts.map((product) => (
+                                <ProductCard product={product} />
+                            ))
+                        }
+                    </div>
+
+                    <div
+                        class="no-results"
+                        id="no-results"
+                        style="display: none;"
+                    >
+                        <p>
+                            No se encontraron productos con los filtros
+                            seleccionados.
+                        </p>
+                        <button
+                            class="clear-filters-btn"
+                            onclick="document.getElementById('clear-filters').click()"
+                        >
+                            Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .products-page {
+        padding: var(--space-3xl) 0;
+        min-height: 60vh;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: var(--space-3xl);
+    }
+
+    .page-header h1 {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--space-md);
+    }
+
+    .page-header p {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+    }
+
+    .products-layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: var(--space-3xl);
+    }
+
+    /* Filters Sidebar */
+    .filters-sidebar {
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        padding: var(--space-xl);
+        height: fit-content;
+        position: sticky;
+        top: calc(var(--space-4xl) + 60px);
+    }
+
+    .filter-section {
+        margin-bottom: var(--space-2xl);
+        padding-bottom: var(--space-2xl);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .filter-section:last-of-type {
+        border-bottom: none;
+    }
+
+    .filter-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--space-md);
+        color: var(--color-text-primary);
+    }
+
+    .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .filter-option {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        cursor: pointer;
+        color: var(--color-text-secondary);
+        transition: color var(--transition-fast);
+    }
+
+    .filter-option:hover {
+        color: var(--color-text-primary);
+    }
+
+    .filter-option input[type="radio"] {
+        accent-color: var(--color-primary);
+    }
+
+    .clear-filters-btn {
+        width: 100%;
+        padding: var(--space-md);
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-text-secondary);
+        font-weight: var(--font-weight-medium);
+        transition: all var(--transition-base);
+    }
+
+    .clear-filters-btn:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-primary);
+        border-color: var(--color-border-light);
+    }
+
+    /* Products Content */
+    .products-content {
+        flex: 1;
+    }
+
+    .products-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-2xl);
+        padding: var(--space-lg);
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+    }
+
+    .results-count {
+        font-size: var(--font-size-base);
+        color: var(--color-text-secondary);
+    }
+
+    .results-count span {
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+    }
+
+    .sort-controls {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    .sort-controls label {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+    }
+
+    .sort-select {
+        padding: var(--space-sm) var(--space-md);
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-sm);
+        cursor: pointer;
+        transition: all var(--transition-base);
+    }
+
+    .sort-select:hover {
+        border-color: var(--color-border-light);
+    }
+
+    .sort-select:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(160, 100, 255, 0.1);
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-2xl);
+    }
+
+    .no-results {
+        text-align: center;
+        padding: var(--space-4xl);
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-xl);
+    }
+
+    .no-results p {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-xl);
+    }
+
+    @media (max-width: 1024px) {
+        .products-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .filters-sidebar {
+            position: static;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .products-toolbar {
+            flex-direction: column;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script is:inline define:vars={{ allProducts: products }}>
+    let filteredProducts = [...allProducts];
+
+    function applyFilters() {
+        const categoryFilter =
+            document.querySelector('input[name="category"]:checked')?.value ||
+            "all";
+        const priceFilter =
+            document.querySelector('input[name="price"]:checked')?.value ||
+            "all";
+        const ratingFilter =
+            document.querySelector('input[name="rating"]:checked')?.value ||
+            "all";
+
+        filteredProducts = allProducts.filter((product) => {
+            // Category filter
+            if (
+                categoryFilter !== "all" &&
+                product.category !== categoryFilter
+            ) {
+                return false;
+            }
+
+            // Price filter
+            if (priceFilter !== "all") {
+                const [min, max] = priceFilter.split("-").map(Number);
+                if (product.price < min || product.price > max) {
+                    return false;
+                }
+            }
+
+            // Rating filter
+            if (ratingFilter !== "all") {
+                const minRating = parseFloat(ratingFilter);
+                if (product.rating < minRating) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        renderProducts();
+    }
+
+    function sortProducts() {
+        const sortValue = document.getElementById("sort-select").value;
+
+        switch (sortValue) {
+            case "price-asc":
+                filteredProducts.sort((a, b) => a.price - b.price);
+                break;
+            case "price-desc":
+                filteredProducts.sort((a, b) => b.price - a.price);
+                break;
+            case "rating":
+                filteredProducts.sort((a, b) => b.rating - a.rating);
+                break;
+            case "name":
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            default:
+                // featured - original order
+                break;
+        }
+
+        renderProducts();
+    }
+
+    function renderProducts() {
+        const grid = document.getElementById("products-grid");
+        const noResults = document.getElementById("no-results");
+        const resultsCount = document.getElementById("results-count");
+
+        resultsCount.textContent = filteredProducts.length;
+
+        if (filteredProducts.length === 0) {
+            grid.style.display = "none";
+            noResults.style.display = "block";
+            return;
+        }
+
+        grid.style.display = "grid";
+        noResults.style.display = "none";
+
+        // Note: In a real app, you'd re-render ProductCard components
+        // For this demo, we'll just show/hide existing cards
+        const allCards = grid.querySelectorAll("article");
+        allCards.forEach((card) => (card.style.display = "none"));
+
+        filteredProducts.forEach((product) => {
+            const card = Array.from(allCards).find((c) =>
+                c.querySelector(`[data-product-id="${product.id}"]`),
+            );
+            if (card) card.style.display = "block";
+        });
+    }
+
+    // Event listeners
+    document.addEventListener("DOMContentLoaded", () => {
+        // Filter changes
+        document
+            .querySelectorAll(
+                'input[name="category"], input[name="price"], input[name="rating"]',
+            )
+            .forEach((input) => {
+                input.addEventListener("change", applyFilters);
+            });
+
+        // Sort changes
+        document
+            .getElementById("sort-select")
+            ?.addEventListener("change", sortProducts);
+
+        // Clear filters
+        document
+            .getElementById("clear-filters")
+            ?.addEventListener("click", () => {
+                document
+                    .querySelectorAll('input[type="radio"]')
+                    .forEach((input) => {
+                        if (input.value === "all") {
+                            input.checked = true;
+                        } else {
+                            input.checked = false;
+                        }
+                    });
+                document.getElementById("sort-select").value = "featured";
+                applyFilters();
+            });
+
+        // Check URL params for category filter
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        if (categoryParam) {
+            const categoryInput = document.querySelector(
+                `input[name="category"][value="${categoryParam}"]`,
+            );
+            if (categoryInput) {
+                categoryInput.checked = true;
+                applyFilters();
+            }
+        }
+    });
+</script>

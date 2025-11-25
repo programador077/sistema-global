@@ -1,0 +1,772 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Checkout - Sistema Global">
+    <Header />
+
+    <main class="checkout-page">
+        <div class="container">
+            <h1 class="page-title">Finalizar Compra</h1>
+
+            <div class="checkout-layout">
+                <!-- Checkout Form -->
+                <div class="checkout-form">
+                    <div class="step-indicator">
+                        <div class="step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Envío</div>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Pago</div>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Confirmación</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Shipping -->
+                    <form id="shipping-form" class="form-step active">
+                        <h2>Información de Envío</h2>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">Nombre *</label>
+                                <input type="text" id="firstName" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName">Apellido *</label>
+                                <input type="text" id="lastName" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Teléfono *</label>
+                            <input type="tel" id="phone" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Dirección *</label>
+                            <input type="text" id="address" required />
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="city">Ciudad *</label>
+                                <input type="text" id="city" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zipCode">Código Postal *</label>
+                                <input type="text" id="zipCode" required />
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn-next"
+                            onclick="nextStep(2)"
+                        >
+                            Continuar al Pago →
+                        </button>
+                    </form>
+
+                    <!-- Step 2: Payment -->
+                    <div id="payment-form" class="form-step">
+                        <h2>Información de Pago</h2>
+
+                        <div class="payment-methods">
+                            <label class="payment-method">
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="card"
+                                    checked
+                                />
+                                <div class="method-content">
+                                    <span class="method-icon">💳</span>
+                                    <span>Tarjeta de Crédito/Débito</span>
+                                </div>
+                            </label>
+
+                            <label class="payment-method">
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="paypal"
+                                />
+                                <div class="method-content">
+                                    <span class="method-icon">🅿️</span>
+                                    <span>PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardNumber">Número de Tarjeta *</label>
+                            <input
+                                type="text"
+                                id="cardNumber"
+                                placeholder="1234 5678 9012 3456"
+                            />
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="expiry">Vencimiento *</label>
+                                <input
+                                    type="text"
+                                    id="expiry"
+                                    placeholder="MM/AA"
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input
+                                    type="text"
+                                    id="cvv"
+                                    placeholder="123"
+                                    maxlength="3"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button
+                                type="button"
+                                class="btn-back"
+                                onclick="nextStep(1)"
+                            >
+                                ← Volver
+                            </button>
+                            <button
+                                type="button"
+                                class="btn-next"
+                                onclick="nextStep(3)"
+                            >
+                                Revisar Pedido →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review -->
+                    <div id="review-form" class="form-step">
+                        <h2>Revisar Pedido</h2>
+
+                        <div class="review-section">
+                            <h3>Información de Envío</h3>
+                            <div id="review-shipping"></div>
+                        </div>
+
+                        <div class="review-section">
+                            <h3>Método de Pago</h3>
+                            <div id="review-payment"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button
+                                type="button"
+                                class="btn-back"
+                                onclick="nextStep(2)"
+                            >
+                                ← Volver
+                            </button>
+                            <button
+                                type="button"
+                                class="btn-submit"
+                                onclick="submitOrder()"
+                            >
+                                Confirmar Pedido
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div
+                        id="success-message"
+                        class="success-message"
+                        style="display: none;"
+                    >
+                        <div class="success-icon">✓</div>
+                        <h2>¡Pedido Confirmado!</h2>
+                        <p>
+                            Gracias por tu compra. Recibirás un email de
+                            confirmación pronto.
+                        </p>
+                        <p class="order-number">
+                            Número de orden: <strong id="order-id"></strong>
+                        </p>
+                        <a href="/" class="btn-home">Volver al Inicio</a>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>Resumen del Pedido</h2>
+
+                    <div class="summary-items" id="summary-items">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="summary-subtotal">$0.00</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Envío</span>
+                        <span id="summary-shipping">$0.00</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Impuestos</span>
+                        <span id="summary-tax">$0.00</span>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span id="summary-total">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .checkout-page {
+        padding: var(--space-3xl) 0;
+        min-height: 60vh;
+    }
+
+    .page-title {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--space-3xl);
+    }
+
+    .checkout-layout {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: var(--space-3xl);
+    }
+
+    /* Step Indicator */
+    .step-indicator {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: var(--space-3xl);
+        position: relative;
+    }
+
+    .step-indicator::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--color-border);
+        z-index: 0;
+    }
+
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+        position: relative;
+        z-index: 1;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--color-bg-secondary);
+        border: 2px solid var(--color-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-tertiary);
+        transition: all var(--transition-base);
+    }
+
+    .step.active .step-number {
+        background: var(--gradient-primary);
+        border-color: transparent;
+        color: var(--color-text-primary);
+        box-shadow: var(--shadow-glow);
+    }
+
+    .step-label {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+    }
+
+    .step.active .step-label {
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    /* Form Steps */
+    .form-step {
+        display: none;
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        padding: var(--space-2xl);
+    }
+
+    .form-step.active {
+        display: block;
+        animation: fadeIn var(--transition-base);
+    }
+
+    .form-step h2 {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--space-2xl);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-lg);
+    }
+
+    .form-group {
+        margin-bottom: var(--space-lg);
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: var(--space-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-sm);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: var(--space-md);
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-base);
+        transition: all var(--transition-base);
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(160, 100, 255, 0.1);
+    }
+
+    /* Payment Methods */
+    .payment-methods {
+        display: flex;
+        gap: var(--space-lg);
+        margin-bottom: var(--space-2xl);
+    }
+
+    .payment-method {
+        flex: 1;
+        cursor: pointer;
+    }
+
+    .payment-method input {
+        display: none;
+    }
+
+    .method-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-xl);
+        background: var(--color-bg-elevated);
+        border: 2px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+    }
+
+    .payment-method input:checked + .method-content {
+        border-color: var(--color-primary);
+        background: rgba(160, 100, 255, 0.1);
+    }
+
+    .method-icon {
+        font-size: var(--font-size-3xl);
+    }
+
+    /* Buttons */
+    .btn-next,
+    .btn-back,
+    .btn-submit,
+    .btn-home {
+        padding: var(--space-md) var(--space-2xl);
+        border-radius: var(--radius-lg);
+        font-weight: var(--font-weight-semibold);
+        transition: all var(--transition-base);
+        cursor: pointer;
+    }
+
+    .btn-next,
+    .btn-submit {
+        background: var(--gradient-primary);
+        color: var(--color-text-primary);
+        width: 100%;
+    }
+
+    .btn-next:hover,
+    .btn-submit:hover {
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+        transform: translateY(-2px);
+    }
+
+    .btn-back {
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-secondary);
+    }
+
+    .btn-back:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-primary);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: var(--space-lg);
+        margin-top: var(--space-2xl);
+    }
+
+    .form-actions .btn-next,
+    .form-actions .btn-submit {
+        flex: 1;
+    }
+
+    /* Review Section */
+    .review-section {
+        margin-bottom: var(--space-2xl);
+        padding: var(--space-lg);
+        background: var(--color-bg-elevated);
+        border-radius: var(--radius-md);
+    }
+
+    .review-section h3 {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-md);
+    }
+
+    .review-section p {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-xs);
+    }
+
+    /* Success Message */
+    .success-message {
+        text-align: center;
+        padding: var(--space-4xl);
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto var(--space-xl);
+        background: var(--color-success);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-4xl);
+        color: white;
+    }
+
+    .success-message h2 {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--space-md);
+    }
+
+    .success-message p {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-md);
+    }
+
+    .order-number {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-primary);
+    }
+
+    .btn-home {
+        display: inline-block;
+        margin-top: var(--space-2xl);
+        text-decoration: none;
+    }
+
+    /* Order Summary */
+    .order-summary {
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        padding: var(--space-2xl);
+        height: fit-content;
+        position: sticky;
+        top: calc(var(--space-4xl) + 60px);
+    }
+
+    .order-summary h2 {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--space-xl);
+    }
+
+    .summary-items {
+        margin-bottom: var(--space-lg);
+    }
+
+    .summary-item {
+        display: flex;
+        gap: var(--space-md);
+        margin-bottom: var(--space-md);
+    }
+
+    .summary-item-image {
+        width: 60px;
+        height: 60px;
+        border-radius: var(--radius-md);
+        object-fit: cover;
+    }
+
+    .summary-item-info {
+        flex: 1;
+    }
+
+    .summary-item-name {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-xs);
+    }
+
+    .summary-item-details {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-tertiary);
+    }
+
+    .summary-divider {
+        height: 1px;
+        background: var(--color-border);
+        margin: var(--space-lg) 0;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: var(--space-sm);
+        color: var(--color-text-secondary);
+    }
+
+    .summary-row span:last-child {
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+    }
+
+    .summary-total {
+        font-size: var(--font-size-xl);
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-bold);
+        margin-top: var(--space-md);
+    }
+
+    .summary-total span:last-child {
+        font-size: var(--font-size-2xl);
+        color: var(--color-primary-light);
+    }
+
+    @media (max-width: 1024px) {
+        .checkout-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .order-summary {
+            position: static;
+            order: -1;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .payment-methods {
+            flex-direction: column;
+        }
+
+        .form-actions {
+            flex-direction: column-reverse;
+        }
+    }
+</style>
+
+<script is:inline>
+    let currentStep = 1;
+    const formData = {};
+
+    function nextStep(step) {
+        // Validate current step before proceeding
+        if (step > currentStep) {
+            if (currentStep === 1 && !validateShipping()) {
+                return;
+            }
+        }
+
+        currentStep = step;
+
+        // Update step indicator
+        document.querySelectorAll(".step").forEach((el, index) => {
+            if (index + 1 <= step) {
+                el.classList.add("active");
+            } else {
+                el.classList.remove("active");
+            }
+        });
+
+        // Update form steps
+        document.querySelectorAll(".form-step").forEach((el) => {
+            el.classList.remove("active");
+        });
+
+        if (step === 1) {
+            document.getElementById("shipping-form").classList.add("active");
+        } else if (step === 2) {
+            document.getElementById("payment-form").classList.add("active");
+        } else if (step === 3) {
+            populateReview();
+            document.getElementById("review-form").classList.add("active");
+        }
+    }
+
+    function validateShipping() {
+        const form = document.getElementById("shipping-form");
+        const inputs = form.querySelectorAll("input[required]");
+        let valid = true;
+
+        inputs.forEach((input) => {
+            if (!input.value.trim()) {
+                valid = false;
+                input.style.borderColor = "var(--color-error)";
+            } else {
+                input.style.borderColor = "";
+                formData[input.id] = input.value;
+            }
+        });
+
+        if (!valid) {
+            alert("Por favor completa todos los campos requeridos");
+        }
+
+        return valid;
+    }
+
+    function populateReview() {
+        const shippingReview = document.getElementById("review-shipping");
+        shippingReview.innerHTML = `
+      <p><strong>${formData.firstName} ${formData.lastName}</strong></p>
+      <p>${formData.email}</p>
+      <p>${formData.phone}</p>
+      <p>${formData.address}</p>
+      <p>${formData.city}, ${formData.zipCode}</p>
+    `;
+
+        const paymentReview = document.getElementById("review-payment");
+        const cardNumber = document.getElementById("cardNumber").value;
+        const maskedCard = cardNumber
+            ? `**** **** **** ${cardNumber.slice(-4)}`
+            : "Tarjeta de Crédito";
+        paymentReview.innerHTML = `<p>${maskedCard}</p>`;
+    }
+
+    function submitOrder() {
+        // Generate random order ID
+        const orderId =
+            "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+        // Hide form, show success
+        document
+            .querySelectorAll(".form-step")
+            .forEach((el) => (el.style.display = "none"));
+        document.querySelector(".step-indicator").style.display = "none";
+
+        const successMessage = document.getElementById("success-message");
+        successMessage.style.display = "block";
+        document.getElementById("order-id").textContent = orderId;
+
+        // Clear cart
+        localStorage.setItem("cart", "[]");
+        window.dispatchEvent(new Event("cartUpdated"));
+    }
+
+    function loadOrderSummary() {
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const summaryItems = document.getElementById("summary-items");
+
+        if (cart.length === 0) {
+            window.location.href = "/cart";
+            return;
+        }
+
+        summaryItems.innerHTML = cart
+            .map(
+                (item) => `
+      <div class="summary-item">
+        <img src="${item.image}" alt="${item.name}" class="summary-item-image" />
+        <div class="summary-item-info">
+          <div class="summary-item-name">${item.name}</div>
+          <div class="summary-item-details">Cantidad: ${item.quantity} × $${item.price.toFixed(2)}</div>
+        </div>
+      </div>
+    `,
+            )
+            .join("");
+
+        const subtotal = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0,
+        );
+        const shipping = subtotal > 100 ? 0 : 10;
+        const tax = subtotal * 0.21;
+        const total = subtotal + shipping + tax;
+
+        document.getElementById("summary-subtotal").textContent =
+            `$${subtotal.toFixed(2)}`;
+        document.getElementById("summary-shipping").textContent =
+            shipping === 0 ? "GRATIS" : `$${shipping.toFixed(2)}`;
+        document.getElementById("summary-tax").textContent =
+            `$${tax.toFixed(2)}`;
+        document.getElementById("summary-total").textContent =
+            `$${total.toFixed(2)}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", loadOrderSummary);
+</script>

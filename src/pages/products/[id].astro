@@ -1,0 +1,637 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import Button from "../../components/Button.astro";
+import products from "../../data/products.json";
+
+export function getStaticPaths() {
+    return products.map((product) => ({
+        params: { id: product.id },
+        props: { product },
+    }));
+}
+
+const { product } = Astro.props;
+
+// Get related products (same category, excluding current)
+const relatedProducts = products
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+---
+
+<Layout
+    title={`${product.name} - Sistema Global`}
+    description={product.description}
+>
+    <Header />
+
+    <main class="product-detail">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="/">Inicio</a>
+                <span>/</span>
+                <a href="/products">Productos</a>
+                <span>/</span>
+                <a href={`/products?category=${product.category}`}
+                    >{product.category}</a
+                >
+                <span>/</span>
+                <span>{product.name}</span>
+            </nav>
+
+            <div class="product-layout">
+                <!-- Image Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img
+                            src={product.images[0]}
+                            alt={product.name}
+                            id="main-image"
+                            class="gallery-main-img"
+                        />
+                        {
+                            product.originalPrice && (
+                                <span class="discount-badge">
+                                    -
+                                    {Math.round(
+                                        ((product.originalPrice -
+                                            product.price) /
+                                            product.originalPrice) *
+                                            100,
+                                    )}
+                                    %
+                                </span>
+                            )
+                        }
+                    </div>
+                    <div class="thumbnail-grid">
+                        {
+                            product.images.map((image, index) => (
+                                <button
+                                    class={`thumbnail ${index === 0 ? "active" : ""}`}
+                                    data-image={image}
+                                >
+                                    <img
+                                        src={image}
+                                        alt={`${product.name} - vista ${index + 1}`}
+                                    />
+                                </button>
+                            ))
+                        }
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <div class="product-category">{product.category}</div>
+                    <h1 class="product-title">{product.name}</h1>
+
+                    <div class="product-rating">
+                        <div class="stars">
+                            {
+                                Array.from({ length: 5 }, (_, i) => (
+                                    <span
+                                        class={
+                                            i < Math.floor(product.rating)
+                                                ? "star star--filled"
+                                                : "star"
+                                        }
+                                    >
+                                        ★
+                                    </span>
+                                ))
+                            }
+                        </div>
+                        <span class="rating-value">{product.rating}</span>
+                        <span class="reviews-count"
+                            >({product.reviews} reseñas)</span
+                        >
+                    </div>
+
+                    <div class="product-price">
+                        <span class="price-current"
+                            >${product.price.toFixed(2)}</span
+                        >
+                        {
+                            product.originalPrice && (
+                                <span class="price-original">
+                                    ${product.originalPrice.toFixed(2)}
+                                </span>
+                            )
+                        }
+                    </div>
+
+                    <p class="product-description">{product.description}</p>
+
+                    <div class="product-stock">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>{product.stock} unidades disponibles</span>
+                    </div>
+
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn" id="qty-decrease">-</button>
+                            <input
+                                type="number"
+                                id="quantity"
+                                value="1"
+                                min="1"
+                                max={product.stock}
+                                readonly
+                            />
+                            <button class="qty-btn" id="qty-increase">+</button>
+                        </div>
+
+                        <button
+                            class="add-to-cart-main"
+                            id="add-to-cart-main"
+                            data-product-id={product.id}
+                            data-product-name={product.name}
+                            data-product-price={product.price}
+                            data-product-image={product.images[0]}
+                        >
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path
+                                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                                ></path>
+                            </svg>
+                            Agregar al Carrito
+                        </button>
+                    </div>
+
+                    <div class="product-features">
+                        <div class="feature">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                                ></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Envío gratis en compras +$100</span>
+                        </div>
+                        <div class="feature">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>Entrega en 2-5 días hábiles</span>
+                        </div>
+                        <div class="feature">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                ></path>
+                                <polyline points="9 22 9 12 15 12 15 22"
+                                ></polyline>
+                            </svg>
+                            <span>Devoluciones gratis 30 días</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            {
+                relatedProducts.length > 0 && (
+                    <section class="related-products">
+                        <h2 class="section-title">Productos Relacionados</h2>
+                        <div class="products-grid">
+                            {relatedProducts.map((relatedProduct) => (
+                                <ProductCard product={relatedProduct} />
+                            ))}
+                        </div>
+                    </section>
+                )
+            }
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .product-detail {
+        padding: var(--space-3xl) 0;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        margin-bottom: var(--space-2xl);
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+    }
+
+    .breadcrumb a {
+        color: var(--color-text-tertiary);
+        transition: color var(--transition-fast);
+    }
+
+    .breadcrumb a:hover {
+        color: var(--color-primary-light);
+    }
+
+    .product-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4xl);
+        margin-bottom: var(--space-4xl);
+    }
+
+    /* Gallery */
+    .product-gallery {
+        position: sticky;
+        top: calc(var(--space-4xl) + 60px);
+        height: fit-content;
+    }
+
+    .main-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        margin-bottom: var(--space-lg);
+    }
+
+    .gallery-main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .discount-badge {
+        position: absolute;
+        top: var(--space-lg);
+        right: var(--space-lg);
+        background: var(--gradient-primary);
+        color: var(--color-text-primary);
+        padding: var(--space-sm) var(--space-lg);
+        border-radius: var(--radius-full);
+        font-weight: var(--font-weight-bold);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .thumbnail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: var(--space-md);
+    }
+
+    .thumbnail {
+        aspect-ratio: 1;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 2px solid var(--color-border);
+        background: var(--color-bg-secondary);
+        cursor: pointer;
+        transition: all var(--transition-base);
+    }
+
+    .thumbnail:hover,
+    .thumbnail.active {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Product Info */
+    .product-category {
+        display: inline-block;
+        font-size: var(--font-size-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-primary-light);
+        margin-bottom: var(--space-sm);
+    }
+
+    .product-title {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--space-lg);
+    }
+
+    .product-rating {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        margin-bottom: var(--space-xl);
+    }
+
+    .stars {
+        display: flex;
+        gap: 2px;
+    }
+
+    .star {
+        color: var(--color-border);
+        font-size: var(--font-size-xl);
+    }
+
+    .star--filled {
+        color: hsl(45, 100%, 51%);
+    }
+
+    .rating-value {
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+    }
+
+    .reviews-count {
+        color: var(--color-text-tertiary);
+        font-size: var(--font-size-sm);
+    }
+
+    .product-price {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+        margin-bottom: var(--space-xl);
+    }
+
+    .price-current {
+        font-size: var(--font-size-5xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+    }
+
+    .price-original {
+        font-size: var(--font-size-2xl);
+        color: var(--color-text-tertiary);
+        text-decoration: line-through;
+    }
+
+    .product-description {
+        font-size: var(--font-size-lg);
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-xl);
+    }
+
+    .product-stock {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        color: var(--color-success);
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--space-2xl);
+    }
+
+    .product-actions {
+        display: flex;
+        gap: var(--space-lg);
+        margin-bottom: var(--space-2xl);
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+
+    .qty-btn {
+        width: 50px;
+        height: 60px;
+        background: var(--color-bg-elevated);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        transition: all var(--transition-base);
+    }
+
+    .qty-btn:hover {
+        background: var(--color-bg-tertiary);
+    }
+
+    #quantity {
+        width: 80px;
+        height: 60px;
+        text-align: center;
+        background: transparent;
+        border: none;
+        color: var(--color-text-primary);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .add-to-cart-main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-md);
+        padding: var(--space-lg) var(--space-2xl);
+        background: var(--gradient-primary);
+        color: var(--color-text-primary);
+        border-radius: var(--radius-lg);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        transition: all var(--transition-base);
+    }
+
+    .add-to-cart-main:hover {
+        box-shadow: var(--shadow-xl), var(--shadow-glow);
+        transform: translateY(-2px);
+    }
+
+    .product-features {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        padding: var(--space-xl);
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        color: var(--color-text-secondary);
+    }
+
+    .feature svg {
+        color: var(--color-primary-light);
+        flex-shrink: 0;
+    }
+
+    /* Related Products */
+    .related-products {
+        padding-top: var(--space-4xl);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .section-title {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--space-2xl);
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-2xl);
+    }
+
+    @media (max-width: 1024px) {
+        .product-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .product-gallery {
+            position: static;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .product-actions {
+            flex-direction: column;
+        }
+
+        .price-current {
+            font-size: var(--font-size-3xl);
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    // Thumbnail gallery
+    document.addEventListener("DOMContentLoaded", () => {
+        const thumbnails = document.querySelectorAll(".thumbnail");
+        const mainImage = document.getElementById(
+            "main-image",
+        ) as HTMLImageElement;
+
+        thumbnails.forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+                const newImage = thumb.getAttribute("data-image");
+                if (newImage && mainImage) {
+                    mainImage.src = newImage;
+                    thumbnails.forEach((t) => t.classList.remove("active"));
+                    thumb.classList.add("active");
+                }
+            });
+        });
+
+        // Quantity controls
+        const qtyDecrease = document.getElementById("qty-decrease");
+        const qtyIncrease = document.getElementById("qty-increase");
+        const qtyInput = document.getElementById(
+            "quantity",
+        ) as HTMLInputElement;
+
+        qtyDecrease?.addEventListener("click", () => {
+            const current = parseInt(qtyInput.value);
+            if (current > 1) {
+                qtyInput.value = (current - 1).toString();
+            }
+        });
+
+        qtyIncrease?.addEventListener("click", () => {
+            const current = parseInt(qtyInput.value);
+            const max = parseInt(qtyInput.max);
+            if (current < max) {
+                qtyInput.value = (current + 1).toString();
+            }
+        });
+
+        // Add to cart
+        const addToCartBtn = document.getElementById("add-to-cart-main");
+        addToCartBtn?.addEventListener("click", () => {
+            const quantity = parseInt(qtyInput.value);
+            const productData = {
+                id: addToCartBtn.getAttribute("data-product-id"),
+                name: addToCartBtn.getAttribute("data-product-name"),
+                price: parseFloat(
+                    addToCartBtn.getAttribute("data-product-price") || "0",
+                ),
+                image: addToCartBtn.getAttribute("data-product-image"),
+                quantity: quantity,
+            };
+
+            // Get existing cart
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+            // Check if product already exists
+            const existingIndex = cart.findIndex(
+                (item: any) => item.id === productData.id,
+            );
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(productData);
+            }
+
+            // Save cart
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Dispatch event
+            window.dispatchEvent(new Event("cartUpdated"));
+
+            // Visual feedback
+            const originalText = addToCartBtn.innerHTML;
+            addToCartBtn.innerHTML = "<span>✓ Agregado al Carrito</span>";
+            addToCartBtn.style.background = "var(--color-success)";
+
+            setTimeout(() => {
+                addToCartBtn.innerHTML = originalText;
+                addToCartBtn.style.background = "";
+            }, 2000);
+        });
+    });
+</script>

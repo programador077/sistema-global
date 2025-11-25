@@ -1,0 +1,242 @@
+[
+    {
+        "id": "1",
+        "name": "Wireless Noise-Cancelling Headphones",
+        "description": "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and studio-quality sound. Perfect for music lovers and professionals.",
+        "price": 299.99,
+        "originalPrice": 399.99,
+        "category": "Electronics",
+        "tags": [
+            "audio",
+            "wireless",
+            "premium"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+            "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&q=80"
+        ],
+        "stock": 45,
+        "rating": 4.8,
+        "reviews": 324
+    },
+    {
+        "id": "2",
+        "name": "Smart Fitness Watch",
+        "description": "Track your health and fitness goals with this advanced smartwatch. Features heart rate monitoring, GPS, and 7-day battery life.",
+        "price": 249.99,
+        "originalPrice": 349.99,
+        "category": "Electronics",
+        "tags": [
+            "fitness",
+            "wearable",
+            "smart"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80",
+            "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&q=80"
+        ],
+        "stock": 67,
+        "rating": 4.6,
+        "reviews": 512
+    },
+    {
+        "id": "3",
+        "name": "Minimalist Leather Backpack",
+        "description": "Handcrafted genuine leather backpack with laptop compartment. Timeless design meets modern functionality.",
+        "price": 189.99,
+        "originalPrice": null,
+        "category": "Fashion",
+        "tags": [
+            "leather",
+            "backpack",
+            "minimalist"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80",
+            "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=800&q=80"
+        ],
+        "stock": 23,
+        "rating": 4.9,
+        "reviews": 187
+    },
+    {
+        "id": "4",
+        "name": "Organic Cotton T-Shirt Set",
+        "description": "Pack of 3 premium organic cotton t-shirts. Soft, breathable, and sustainably made. Available in multiple colors.",
+        "price": 59.99,
+        "originalPrice": 79.99,
+        "category": "Fashion",
+        "tags": [
+            "organic",
+            "basics",
+            "sustainable"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
+            "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80"
+        ],
+        "stock": 156,
+        "rating": 4.7,
+        "reviews": 892
+    },
+    {
+        "id": "5",
+        "name": "Modern Desk Lamp",
+        "description": "Sleek LED desk lamp with adjustable brightness and color temperature. USB charging port included.",
+        "price": 79.99,
+        "originalPrice": null,
+        "category": "Home",
+        "tags": [
+            "lighting",
+            "modern",
+            "LED"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
+            "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80"
+        ],
+        "stock": 89,
+        "rating": 4.5,
+        "reviews": 234
+    },
+    {
+        "id": "6",
+        "name": "Ceramic Coffee Mug Set",
+        "description": "Set of 4 handmade ceramic mugs with unique glazed finish. Microwave and dishwasher safe.",
+        "price": 44.99,
+        "originalPrice": 59.99,
+        "category": "Home",
+        "tags": [
+            "ceramic",
+            "handmade",
+            "kitchen"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80",
+            "https://images.unsplash.com/photo-1517256673644-36ad11246d21?w=800&q=80"
+        ],
+        "stock": 34,
+        "rating": 4.8,
+        "reviews": 156
+    },
+    {
+        "id": "7",
+        "name": "Portable Bluetooth Speaker",
+        "description": "Waterproof portable speaker with 360° sound. Perfect for outdoor adventures with 12-hour battery life.",
+        "price": 129.99,
+        "originalPrice": 179.99,
+        "category": "Electronics",
+        "tags": [
+            "audio",
+            "portable",
+            "waterproof"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&q=80",
+            "https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=800&q=80"
+        ],
+        "stock": 78,
+        "rating": 4.6,
+        "reviews": 445
+    },
+    {
+        "id": "8",
+        "name": "Yoga Mat & Block Set",
+        "description": "Premium non-slip yoga mat with matching blocks and carrying strap. Eco-friendly materials.",
+        "price": 69.99,
+        "originalPrice": null,
+        "category": "Fitness",
+        "tags": [
+            "yoga",
+            "fitness",
+            "eco-friendly"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=800&q=80",
+            "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=800&q=80"
+        ],
+        "stock": 92,
+        "rating": 4.7,
+        "reviews": 267
+    },
+    {
+        "id": "9",
+        "name": "Stainless Steel Water Bottle",
+        "description": "Insulated water bottle keeps drinks cold for 24h or hot for 12h. BPA-free with leak-proof lid.",
+        "price": 34.99,
+        "originalPrice": 44.99,
+        "category": "Fitness",
+        "tags": [
+            "hydration",
+            "insulated",
+            "sustainable"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&q=80",
+            "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=800&q=80"
+        ],
+        "stock": 203,
+        "rating": 4.9,
+        "reviews": 678
+    },
+    {
+        "id": "10",
+        "name": "Wireless Mechanical Keyboard",
+        "description": "Premium mechanical keyboard with RGB backlighting and hot-swappable switches. Wireless and wired modes.",
+        "price": 159.99,
+        "originalPrice": 199.99,
+        "category": "Electronics",
+        "tags": [
+            "keyboard",
+            "mechanical",
+            "RGB"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
+            "https://images.unsplash.com/photo-1595225476474-87563907a212?w=800&q=80"
+        ],
+        "stock": 41,
+        "rating": 4.8,
+        "reviews": 389
+    },
+    {
+        "id": "11",
+        "name": "Scented Candle Collection",
+        "description": "Set of 3 luxury soy candles with natural essential oils. Hand-poured in elegant glass containers.",
+        "price": 54.99,
+        "originalPrice": null,
+        "category": "Home",
+        "tags": [
+            "candles",
+            "aromatherapy",
+            "luxury"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1602874801006-c2b8f2f88c8e?w=800&q=80",
+            "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80"
+        ],
+        "stock": 67,
+        "rating": 4.7,
+        "reviews": 234
+    },
+    {
+        "id": "12",
+        "name": "Classic Denim Jacket",
+        "description": "Timeless denim jacket with vintage wash. Versatile piece that pairs with everything in your wardrobe.",
+        "price": 89.99,
+        "originalPrice": 119.99,
+        "category": "Fashion",
+        "tags": [
+            "denim",
+            "jacket",
+            "classic"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&q=80",
+            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80"
+        ],
+        "stock": 58,
+        "rating": 4.6,
+        "reviews": 412
+    }
+]

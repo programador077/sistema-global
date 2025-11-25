@@ -1,11 +1,362 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProductCard from "../components/ProductCard.astro";
+import Button from "../components/Button.astro";
+import products from "../data/products.json";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Get featured products (first 6)
+const featuredProducts = products.slice(0, 6);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Sistema Global - Tu Tienda Premium Online">
+	<Header />
+
+	<main>
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="container">
+				<div class="hero__content">
+					<h1 class="hero__title">
+						Descubre lo
+						<span class="gradient-text">Extraordinario</span>
+					</h1>
+					<p class="hero__description">
+						Productos premium seleccionados para elevar tu estilo de
+						vida. Calidad excepcional, diseño impecable.
+					</p>
+					<div class="hero__actions">
+						<Button href="/products" variant="primary" size="lg">
+							Explorar Productos
+						</Button>
+						<Button
+							href="/products?category=Electronics"
+							variant="outline"
+							size="lg"
+						>
+							Ver Ofertas
+						</Button>
+					</div>
+				</div>
+				<div class="hero__stats">
+					<div class="stat">
+						<div class="stat__value">500+</div>
+						<div class="stat__label">Productos</div>
+					</div>
+					<div class="stat">
+						<div class="stat__value">50k+</div>
+						<div class="stat__label">Clientes</div>
+					</div>
+					<div class="stat">
+						<div class="stat__value">4.9</div>
+						<div class="stat__label">Rating</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Featured Products -->
+		<section class="featured-products">
+			<div class="container">
+				<div class="section-header">
+					<h2 class="section-title">Productos Destacados</h2>
+					<p class="section-description">
+						Nuestra selección premium de productos más populares
+					</p>
+				</div>
+
+				<div class="products-grid">
+					{
+						featuredProducts.map((product) => (
+							<ProductCard product={product} />
+						))
+					}
+				</div>
+
+				<div class="section-footer">
+					<Button href="/products" variant="secondary" size="lg">
+						Ver Todos los Productos
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Categories -->
+		<section class="categories">
+			<div class="container">
+				<div class="section-header">
+					<h2 class="section-title">Explora por Categoría</h2>
+				</div>
+
+				<div class="categories-grid">
+					<a
+						href="/products?category=Electronics"
+						class="category-card"
+					>
+						<div class="category-card__icon">💻</div>
+						<h3 class="category-card__title">Electrónica</h3>
+						<p class="category-card__count">120+ productos</p>
+					</a>
+
+					<a href="/products?category=Fashion" class="category-card">
+						<div class="category-card__icon">👔</div>
+						<h3 class="category-card__title">Moda</h3>
+						<p class="category-card__count">200+ productos</p>
+					</a>
+
+					<a href="/products?category=Home" class="category-card">
+						<div class="category-card__icon">🏠</div>
+						<h3 class="category-card__title">Hogar</h3>
+						<p class="category-card__count">150+ productos</p>
+					</a>
+
+					<a href="/products?category=Fitness" class="category-card">
+						<div class="category-card__icon">💪</div>
+						<h3 class="category-card__title">Fitness</h3>
+						<p class="category-card__count">80+ productos</p>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Promo Banner -->
+		<section class="promo-banner">
+			<div class="container">
+				<div class="promo-banner__content">
+					<h2 class="promo-banner__title">Ofertas de Temporada</h2>
+					<p class="promo-banner__description">
+						Hasta 40% de descuento en productos seleccionados
+					</p>
+					<Button href="/products" variant="primary" size="lg">
+						Aprovecha Ahora
+					</Button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
 </Layout>
+
+<style>
+	/* Hero Section */
+	.hero {
+		position: relative;
+		padding: var(--space-4xl) 0;
+		background: var(--gradient-hero);
+		overflow: hidden;
+	}
+
+	.hero::before {
+		content: "";
+		position: absolute;
+		top: -50%;
+		right: -20%;
+		width: 800px;
+		height: 800px;
+		background: radial-gradient(
+			circle,
+			rgba(160, 100, 255, 0.15) 0%,
+			transparent 70%
+		);
+		border-radius: 50%;
+		animation: pulse 8s ease-in-out infinite;
+	}
+
+	.hero__content {
+		position: relative;
+		z-index: 1;
+		max-width: 700px;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.hero__title {
+		font-size: var(--font-size-5xl);
+		font-weight: var(--font-weight-bold);
+		line-height: var(--line-height-tight);
+		margin-bottom: var(--space-lg);
+		animation: fadeIn 0.8s ease-out;
+	}
+
+	.hero__description {
+		font-size: var(--font-size-xl);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-2xl);
+		line-height: var(--line-height-relaxed);
+		animation: fadeIn 0.8s ease-out 0.2s backwards;
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: var(--space-lg);
+		flex-wrap: wrap;
+		animation: fadeIn 0.8s ease-out 0.4s backwards;
+	}
+
+	.hero__stats {
+		display: flex;
+		gap: var(--space-3xl);
+		position: relative;
+		z-index: 1;
+		animation: fadeIn 0.8s ease-out 0.6s backwards;
+	}
+
+	.stat {
+		text-align: center;
+	}
+
+	.stat__value {
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-bold);
+		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin-bottom: var(--space-xs);
+	}
+
+	.stat__label {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	/* Featured Products */
+	.featured-products {
+		padding: var(--space-4xl) 0;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.section-title {
+		font-size: var(--font-size-4xl);
+		margin-bottom: var(--space-md);
+	}
+
+	.section-description {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-secondary);
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.products-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: var(--space-2xl);
+		margin-bottom: var(--space-3xl);
+	}
+
+	.section-footer {
+		text-align: center;
+	}
+
+	/* Categories */
+	.categories {
+		padding: var(--space-4xl) 0;
+		background: var(--color-bg-secondary);
+	}
+
+	.categories-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: var(--space-xl);
+	}
+
+	.category-card {
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-xl);
+		padding: var(--space-2xl);
+		text-align: center;
+		text-decoration: none;
+		transition: all var(--transition-base);
+	}
+
+	.category-card:hover {
+		border-color: var(--color-border-light);
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.category-card__icon {
+		font-size: 4rem;
+		margin-bottom: var(--space-lg);
+	}
+
+	.category-card__title {
+		font-size: var(--font-size-2xl);
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-sm);
+	}
+
+	.category-card__count {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+	}
+
+	/* Promo Banner */
+	.promo-banner {
+		padding: var(--space-4xl) 0;
+		background: var(--gradient-secondary);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.promo-banner::before {
+		content: "";
+		position: absolute;
+		top: -50%;
+		left: -20%;
+		width: 600px;
+		height: 600px;
+		background: radial-gradient(
+			circle,
+			rgba(255, 255, 255, 0.1) 0%,
+			transparent 70%
+		);
+		border-radius: 50%;
+	}
+
+	.promo-banner__content {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.promo-banner__title {
+		font-size: var(--font-size-4xl);
+		margin-bottom: var(--space-md);
+	}
+
+	.promo-banner__description {
+		font-size: var(--font-size-xl);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-2xl);
+	}
+
+	@media (max-width: 768px) {
+		.hero__title {
+			font-size: var(--font-size-3xl);
+		}
+
+		.hero__stats {
+			gap: var(--space-xl);
+		}
+
+		.products-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.hero__actions {
+			flex-direction: column;
+		}
+	}
+</style>
